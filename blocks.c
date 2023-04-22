@@ -11,9 +11,8 @@
 #define FLOOR '.'
 
 
-char insertBlock(int a) {
-   if (a == 0) return FLOOR;
-   if (a == 1) return WALL;
-   if (a == 2) return CAVE;
-   return '?'; // handle unknown input
+void insertBlock(int a) {
+   if (a == 0) printw ("%c", FLOOR);
+   if (a == 1) printw ("%c", CAVE);
+   if (a == 2) printw ("%c", WALL);
 }
