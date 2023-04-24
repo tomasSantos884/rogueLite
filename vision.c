@@ -1,4 +1,4 @@
-//blocos que compoem o mapa
+//modulo para a visibilidade do jogador
 
 #include <stdio.h>
 #include <stdlib.h>
