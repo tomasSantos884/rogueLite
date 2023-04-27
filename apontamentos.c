@@ -14,7 +14,7 @@ struct map{
 	struct block blocks[rows][collumns];
 };
 
-// type = 2 -> caverna, = 1 -> parede, = 0 -> chao
+// type = 2 -> caverna, = 1 -> parede, = 0 -> chao, = 3 -> jogador (@)
 
 
 //funcao drawBlock -> fucao que consoante o type do block desenha os diferentes carateres: -> Dinis
@@ -35,4 +35,8 @@ struct map{
 
 
 //criar janela no main -> Tomás
+
+
+
+//juntar o ficheiro vision e jogador quando ambos funcionais
 
