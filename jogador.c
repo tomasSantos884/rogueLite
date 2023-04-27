@@ -4,11 +4,13 @@
 //tudo relacionado com o jogador, movimentacao, interacoes etc
 #include "blocks.c"
 #include <curses.h>
+#include <ncurses.h>
 
 
 
 struct block{
-	int type;
+    int type;
+    int visible; //1 para visivel, 0 para nao visivel, 2 para visto
 };
 
 struct map{

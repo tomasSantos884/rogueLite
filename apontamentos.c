@@ -6,6 +6,7 @@ struct player{
 
 struct block{
 	int type;
+	int visible; //1 para visivel, 0 para nao visivel, 2 para visto
 };
 
 struct map{

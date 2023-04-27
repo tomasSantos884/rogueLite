@@ -33,6 +33,7 @@ int main(){
 	wrefresh(board_win);
 
 	getch();
+	
 	endwin();
 
 	return 0;
