@@ -12,7 +12,27 @@
 
 
 void insertBlock(int a) {
-   if (a == 0) printw ("%c", FLOOR);
-   if (a == 1) printw ("%c", CAVE);
-   if (a == 2) printw ("%c", WALL);
+
+   // enable color output
+    start_color();
+
+    // define a color pair with white foreground and black background
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+
+    // turn on the color pair
+   if (a == 0){
+      attron(COLOR_PAIR(1));
+      printw ("%c", FLOOR);
+      attroff(COLOR_PAIR(1));
+   } 
+      if (a == 1){
+      attron(COLOR_PAIR(1));
+      printw ("%c", CAVE);
+      attroff(COLOR_PAIR(1));
+   } 
+      if (a == 2){
+      attron(COLOR_PAIR(1));
+      printw ("%c", WALL);
+      attroff(COLOR_PAIR(1));
+   }
 }
