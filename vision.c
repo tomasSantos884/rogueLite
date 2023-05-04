@@ -9,7 +9,7 @@
 #define RANGE_OF_SIGHT 5
 
 // x e y sao coordenadas do jogador, rows e collums sao coordenadas do mapa
-void playerVisibility(int x, int y, int rows, int collums){
+void playerVisibility(int x, int y, int rows, int collums, int *isVisible, int *seen){
 
 
     for (int i=0; i < rows; i++){
@@ -35,13 +35,15 @@ void playerVisibility(int x, int y, int rows, int collums){
                 }
 
                 if (isObject){
-                    printw ("%c", ' ' );// ja encontrou uma parece por isso nao consegue ver mais 
+                    *isVisible = 1;
+                    *seen = 1;// ja encontrou uma parece por isso nao consegue ver mais 
                 } else {
-                    printw ("%c", map.block blocks[i][j]); // bloco visivel
+                    *isVisible = 1;
+                    *seen = 1; // bloco visivel
                 }
 
             } else {
-                    printw ("%c", ' '); // esta fora da range
+                    *isVisible = 0;// esta fora da range
                 }
         }
     }
