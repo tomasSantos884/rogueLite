@@ -16,6 +16,7 @@ int main(){
 
 	WINDOW *wnd = initscr();
 	getmaxyx(wnd,st.nCols,st.nRows);
+	
 
 	srand48(time(NULL));
 	start_color();
