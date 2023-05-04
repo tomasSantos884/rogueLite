@@ -7,8 +7,9 @@
 
 
 typedef struct {
-    int isWall;
-	int isVisible;   // 1 se é parede, 0 se não
+    int isWall; // 1 se é parede
+	int isVisible; //1 se é visivel
+	int seen; //1 se foi visto 
 } BLOCK;
 
 
