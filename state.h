@@ -2,8 +2,6 @@
 #define ___STATE_H___
 #include <ncurses.h>
 
-#define rows 100
-#define cols 100
 
 
 typedef struct {
@@ -28,6 +26,6 @@ typedef struct state {
 	int nFstPass; //numero de vezes que vai ser corrido o primeiro algoritmo para organizar o mapa
 	int nSndPass; //numero de vezes que vai ser corrido o segundo algoritmo para organizar o mapa
 
-	BLOCK map[rows][cols];
+	BLOCK map[nRows][nCols];
 } STATE;
 #endif
