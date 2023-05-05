@@ -4,7 +4,7 @@
 #include <ncurses.h>
 #include <time.h>
 
-//#include "mapa.h"
+#include "mapa.h"
 
 #include "state.h"
 

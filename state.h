@@ -26,6 +26,10 @@ typedef struct state {
 	int nFstPass; //numero de vezes que vai ser corrido o primeiro algoritmo para organizar o mapa
 	int nSndPass; //numero de vezes que vai ser corrido o segundo algoritmo para organizar o mapa
 
-	BLOCK map[nRows][nCols];
+	BLOCK **map;
+
 } STATE;
+
+
+
 #endif

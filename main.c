@@ -4,7 +4,10 @@
 #include <ncurses.h>
 #include <time.h>
 
-#include "mapa.c"
+#include "state.h"
+
+#include "mapa.h"
+
 
 int main(){
 	//estado inicial;
@@ -16,7 +19,13 @@ int main(){
 
 	WINDOW *wnd = initscr();
 	getmaxyx(wnd,st.nCols,st.nRows);
-	
+
+	printf("%d\n", st.nCols);
+	printf("%d", st.nRows);
+
+	//int i;
+	//st.map = malloc(st.nRows*sizeof(BLOCK*));
+	//for(i=0;i<st.nRows;i++) st.map[i] = malloc(st.nCols*sizeof(BLOCK));
 
 	srand48(time(NULL));
 	start_color();
@@ -31,7 +40,22 @@ int main(){
         init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
         init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
 
-	genMap(&st);
+	//setBorders(&st, st.nRows, st.nCols, 2);
+
+printf("%d\n", st.nCols);
+	printf("%d", st.nRows);
+	for (int i = 0; i < st.nRows - 1; i++){
+			printf("%d\n", i);
+		for (int j = 0; j < st.nCols - 1; j++){
+
+			/* if (st.map[i][j].isWall){
+				printw("%c",'#');
+			}
+			else{
+				printw("%c",' ');
+			} */
+		}
+	}
 
 	while(1) {
 		
