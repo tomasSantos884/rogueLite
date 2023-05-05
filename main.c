@@ -20,8 +20,8 @@ int main(){
 	WINDOW *wnd = initscr();
 	getmaxyx(wnd,st.nCols,st.nRows);
 
-	printf("%d\n", st.nCols);
-	printf("%d", st.nRows);
+	//printf("%d", st.nCols);
+	//printf("%d", st.nRows);
 
 	//int i;
 	//st.map = malloc(st.nRows*sizeof(BLOCK*));
@@ -40,26 +40,28 @@ int main(){
         init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
         init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
 
+
 	//setBorders(&st, st.nRows, st.nCols, 2);
 
-printf("%d\n", st.nCols);
-	printf("%d", st.nRows);
-	for (int i = 0; i < st.nRows - 1; i++){
-			printf("%d\n", i);
+//printf("%d", st.nCols);
+//	printf("%d", st.nRows);
+/* 	for (int i = 0; i < st.nRows - 1; i++){
+			//printf("%d ", i);
 		for (int j = 0; j < st.nCols - 1; j++){
+			printf("%d ", st.map[i][j].isWall);
 
-			/* if (st.map[i][j].isWall){
-				printw("%c",'#');
+			if (st.map[i][j].isWall){
+				printf("%c",'#');
 			}
 			else{
-				printw("%c",' ');
-			} */
+				printf("%c",' ');
+			}
 		}
-	}
+	} */
 
-	while(1) {
+	/* while(1) {
 		
-	}
+	} */
 
 
 	return 0;
