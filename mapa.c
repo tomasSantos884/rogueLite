@@ -12,7 +12,6 @@
 
 
 void setBorders(STATE *s, int nRows, int nCols, int borderLength) { //funcçao que irá percorrer o mapa e modificar as bordas destes de acordo com o tamanho da borda escolhido
-    printf("entreiiiii");
 	for (int i = 0; i < nRows; i++) {
         for (int j = 0; j < nCols; j++) {
             if (i < borderLength || i >= nRows - borderLength || j < borderLength || j >= nCols - borderLength) {
