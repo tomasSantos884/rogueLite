@@ -5,55 +5,28 @@
 #include "blocks.c"
 #include <curses.h>
 #include <ncurses.h>
+#include "state.h"
 
 
+void drawPlayer(int x,int y, STATE *s)  {} //já não faz nada, a função debaixo já muda o state
 
-struct block{
-    int type;
-    int visible; //1 para visivel, 0 para nao visivel, 2 para visto
-};
 
-struct map{
-	int rows;
-	int collumns;
-	struct block blocks[40][40]; //valores das colunas e linhas para exemplo apenas
-};
+void moveJogador(int ch, STATE *s) { 
 
-struct player{
-	int x;
-	int y;
-	int hp; //health points
-};
-
-typedef struct map {
-    int rows;
-    int columns;
-    struct block blocks[40][40];
-} mapa;
-
-void drawPlayer(int x,int y, mapa m) {
- m.blocks[x][y].type = 3; //3 remete para o personagem
- return 0;
-}
-
-void moveJogador(int ch,int x, int y,mapa m) { //mudei de block para char pq char é o tipo do bloco (símbolo), mas em baixo na função é passada na função a struct block
 
     switch (ch) {
-      case KEY_UP: if (m.blocks[x][y+1].type != 1) { // verifica se o jogador se está a mover contra uma parede
-                   y = y++;
-                   drawPlayer(x,y,m);}
+      case KEY_UP: if (s->map[s->playerX][s->playerY++].isWall != 1) { // verifica se o jogador se está a mover contra uma parede
+                   s->playerY = s->playerY++;}
+              
         break;
-      case KEY_DOWN: if (m.blocks[x][y-1].type != 1) {
-                     y = y--;
-                     drawPlayer(x,y,m);}
+      case KEY_DOWN: if (s->map[s->playerX][s->playerY--].isWall != 1) { 
+                     s->playerY = s->playerY--;}
         break;
-      case KEY_LEFT: if (m.blocks[x-1][y].type != 1) {
-                     x = x--;
-                     drawPlayer(x-1,y,m);}
+      case KEY_LEFT: if (s->map[s->playerX--][s->playerY].isWall != 1) { 
+                     s->playerX = s->playerX--;}
         break;
-      case KEY_RIGHT: if (m.blocks[x+1][y].type != 1) {
-                      x = x++;
-                      drawPlayer(x+1,y,m);}
+      case KEY_RIGHT: if (s->map[s->playerX++][s->playerY].isWall != 1) { 
+                     s->playerX = s->playerX++;}
         break;
     }
 
@@ -62,12 +35,11 @@ void moveJogador(int ch,int x, int y,mapa m) { //mudei de block para char pq cha
 }
 
 int main() {
-    struct player jogador;
-    struct map mapa;
+    STATE *s;
     int c;
     while (c = getch()) {
     //a função getch() lê input do jogador
-      moveJogador(c,jogador.x,jogador.y,mapa);
+      moveJogador(c, s);
     }
     return 0;
 }
