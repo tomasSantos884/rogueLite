@@ -32,26 +32,26 @@ typedef struct map {
 } mapa;
 
 void drawPlayer(int x,int y, mapa m) {
- m.blocks[x][y] = 3; //3 remete para o personagem
+ m.blocks[x][y].type = 3; //3 remete para o personagem
  return 0;
 }
 
 void moveJogador(int ch,int x, int y,mapa m) { //mudei de block para char pq char é o tipo do bloco (símbolo), mas em baixo na função é passada na função a struct block
 
     switch (ch) {
-      case KEY_UP: if (m.blocks[x][y+1] != '#') { // verifica se o jogador se está a mover contra uma parede
+      case KEY_UP: if (m.blocks[x][y+1].type != 1) { // verifica se o jogador se está a mover contra uma parede
                    y = y++;
                    drawPlayer(x,y,m);}
         break;
-      case KEY_DOWN: if (m.blocks[x][y-1] != '#') {
+      case KEY_DOWN: if (m.blocks[x][y-1].type != 1) {
                      y = y--;
                      drawPlayer(x,y,m);}
         break;
-      case KEY_LEFT: if (m.blocks[x-1][y] != '#') {
+      case KEY_LEFT: if (m.blocks[x-1][y].type != 1) {
                      x = x--;
                      drawPlayer(x-1,y,m);}
         break;
-      case KEY_RIGHT: if (m.blocks[x+1][y] != '#') {
+      case KEY_RIGHT: if (m.blocks[x+1][y].type != 1) {
                       x = x++;
                       drawPlayer(x+1,y,m);}
         break;
