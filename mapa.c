@@ -9,33 +9,45 @@
 #include "state.h"
 
 
+void fillMap(struct state *s, int nRows,int nCols){
+	srand48(time(NULL));
+	double rand;
+
+	for (int i = 1; i < nRows - 1; i++) {
+        for (int j = 1; j < nCols - 1; j++) {
+			rand = drand48();
 
 
-void setBorders(STATE *s, int nRows, int nCols, int borderLength) { //funcçao que irá percorrer o mapa e modificar as bordas destes de acordo com o tamanho da borda escolhido
+			if (rand < 0.40){
+				move(i,j);
+				attron(COLOR_PAIR(COLOR_WHITE));
+				mvaddch(i,j, '#' | A_BOLD);
+				attroff(COLOR_PAIR(COLOR_WHITE));
+			}
+		}
+	}
+}
+
+void setBorders(struct state *s, int nRows, int nCols, int borderLength) { //funcçao que irá percorrer o mapa e modificar as bordas destes de acordo com o tamanho da borda escolhido
 	for (int i = 0; i < nRows; i++) {
         for (int j = 0; j < nCols; j++) {
             if (i < borderLength || i >= nRows - borderLength || j < borderLength || j >= nCols - borderLength) {
-                printf("position [%d][%d] is border", i, j);
-				s->map[i][j].isWall = 1;
+				move(i,j);
+				attron(COLOR_PAIR(COLOR_WHITE));
+				mvaddch(i,j, '#' | A_BOLD);
+				attroff(COLOR_PAIR(COLOR_WHITE));
             }
         }
     }
 }
 
 
-void fillMap(STATE *s,int nRows, int nCols){ //esta funçao irá preencher o interior do mapa(excluindo as bordas) de forma aleatoria com paredes, gerando para cada bloco um numero, caso o numero seja menor do que a probabilidade de ser parede definida em probWall, esse bloco passará a ser uma parede
-	srand48(time(NULL)); //Seed the random number generator with the current time
-	double rand; //declara a variavel que vai ser usada para guardar os valores gerados aleatóriamente
-
-	for (int i = 1; i < nRows - 1; i++){
-		for (int j = 1; j < nCols - 1; j++){
-			rand = drand48();
-			s->map[i][j].isWall = rand < s->probWall;
-		}
-	}
-}
 
 
+
+
+
+/*
 
 int wallCountInRad(STATE *s, int posX, int posY, int radius, int nRows, int nCols) {
     int wallCount = 0;
@@ -106,3 +118,4 @@ void genMap(STATE *s){
 		}
 	}
 }
+ */

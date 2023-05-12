@@ -6,6 +6,6 @@
 
 void setBorders(STATE *s, int nRows, int nCols, int borderLength);
 
-void genMap(STATE *s);
+void fillMap(struct state *s, int nRows,int nCols);
 
 #endif
