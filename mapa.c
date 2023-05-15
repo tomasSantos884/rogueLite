@@ -37,24 +37,6 @@ void setBorders(BLOCK* map,STATE *st ) { //funcçao que irá percorrer o mapa e 
 	}
 }
 
-
-
-
-void drawMap(BLOCK *map,STATE *st){
-	for (int i = 0; i < st->nRows; i++){
-		for (int j = 0; j < st->nCols; j++){
-			if (map[i * st->nCols + j].isWall == 1){
-				attron(COLOR_PAIR(COLOR_WHITE));
-				mvaddch(i, j, '#' | A_BOLD);
-				attroff(COLOR_PAIR(COLOR_WHITE));
-			}
-		}
-	}
-}
-
-
-
-
 int wallCountInRad(BLOCK* map, int posX, int posY, int radius,STATE *st) {
     int wallCount = 0;
     for (int i = posX - radius; i <= posX + radius; i++) {
