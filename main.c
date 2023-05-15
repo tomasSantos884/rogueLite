@@ -10,7 +10,7 @@
 
 #include "jogador.c"
 #include "blocks.c"
-
+#include "vision.c"
 
 int main(){
 
@@ -61,20 +61,9 @@ int main(){
 
 	genMap((BLOCK*)map,&st);
 
-	drawMap((BLOCK*)map,&st);
-
-	/* for (int i = 0; i < st.nRows; i++){
-		for (int j = 0; j < st.nCols; j++){
-			insertBlock(map[i][j].isWall,map[i][j].isVisible,map[i][j].seen);
-		}
-		
-	} */
-	
-
-	//drawMap((BLOCK*)map,&st);
-
-
 	while(1) {
+		playerVisibility((BLOCK*)map,&st);
+		drawMap((BLOCK*)map,&st);
 		attron(COLOR_PAIR(COLOR_WHITE));
 		mvaddch(st.playerX, st.playerY, '@' | A_BOLD);
 		attroff(COLOR_PAIR(COLOR_WHITE));
