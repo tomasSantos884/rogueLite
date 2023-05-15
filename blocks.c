@@ -10,6 +10,18 @@
 #define CAVE '-'
 #define FLOOR '.'
 
+void initializeBlocks(BLOCK* map,STATE *st){
+   for (int i = 0; i < st->nRows; i++)
+   {
+      for (size_t j = 0; j < st->nCols; j++)
+      {
+         map[i * st->nCols + j].isWall = 0;
+         map[i * st->nCols + j].seen = 0;
+         map[i * st->nCols + j].isVisible = 0;
+      }
+   }
+}
+
 
 void insertBlock(int isWall, int isVisible, int seen) {
     // enable color output

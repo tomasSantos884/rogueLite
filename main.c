@@ -39,6 +39,8 @@ int main(){
 
 	BLOCK map[nrows][ncols];
 
+	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
+
 	srandom(time(NULL));
 	start_color();
 
@@ -56,8 +58,6 @@ int main(){
 
 	setBorders((BLOCK*)map,&st);
 	fillMap((BLOCK*)map,&st);
-
-	//fstPass((BLOCK*)map,&st);
 
 	genMap((BLOCK*)map,&st);
 
