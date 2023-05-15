@@ -31,7 +31,7 @@ void playerVisibility(BLOCK *map,STATE *st){
                     int cy = st->playerY + t * dy;
 
                     // verificar se o bloco é um obstaculo neste caso parede ou caverna
-                    if (map[i * st->nCols + j].isWall == 1){
+                    if (map[cy * st->nCols + cx].isWall == 1){
                         isObject=1;
                         break;
                     }
