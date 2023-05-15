@@ -9,33 +9,35 @@
 #include "mapa.h"
 
 #include "jogador.c"
+#include "blocks.c"
 
 
 int main(){
 
+	STATE st;
 
 	WINDOW *wnd = initscr();
 	int ncols,nrows;
 	getmaxyx(wnd,nrows,ncols);
 
+	
+	st.nRows = nrows;
+	st.nCols = ncols;
 
-	STATE* st = malloc(sizeof(STATE) + nrows * ncols * sizeof(BLOCK));
+	st.playerX = 20;
+	st.playerY = 20;
 
-	st->nRows = nrows;
-	st->nCols = ncols;
+	st.borderLength = 1;
 
-	st->playerX = 20;
-	st->playerY = 20;
+	st.probWall = 0.30;
 
-	st->borderLength = 1;
+	st.nFstPass = 0;
+	st.nSndPass = 0;
 
-	st->probWall = 0.40;
+	st.nCols = ncols;
+	st.nRows = nrows;
 
-	st->nFstPass = 0;
-	st->nSndPass = 0;
-
-	st->nCols = ncols;
-	st->nRows = nrows;
+	BLOCK map[nrows][ncols];
 
 	srandom(time(NULL));
 	start_color();
@@ -52,18 +54,33 @@ int main(){
         init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
         init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
 
+	setBorders((BLOCK*)map,&st);
+	fillMap((BLOCK*)map,&st);
+
+	//fstPass((BLOCK*)map,&st);
+
+	genMap((BLOCK*)map,&st);
+
+	drawMap((BLOCK*)map,&st);
+
+	/* for (int i = 0; i < st.nRows; i++){
+		for (int j = 0; j < st.nCols; j++){
+			insertBlock(map[i][j].isWall,map[i][j].isVisible,map[i][j].seen);
+		}
+		
+	} */
+	
+
+	drawMap((BLOCK*)map,&st);
+
+
 	while(1) {
-
-		setBorders(&st,st->nRows,st->nCols,st->borderLength);
-
-		fillMap(&st,st->nRows,st->nCols);
-
 		attron(COLOR_PAIR(COLOR_WHITE));
-		mvaddch(st->playerX, st->playerY, '@' | A_BOLD);
+		mvaddch(st.playerX, st.playerY, '@' | A_BOLD);
 		attroff(COLOR_PAIR(COLOR_WHITE));
 
-		move(st->playerX, st->playerY);
-		update(st);
+		move(st.playerX, st.playerY);
+		update(&st);
 	}
 
 
