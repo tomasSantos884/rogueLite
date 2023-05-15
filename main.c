@@ -71,7 +71,7 @@ int main(){
 	} */
 	
 
-	drawMap((BLOCK*)map,&st);
+	//drawMap((BLOCK*)map,&st);
 
 
 	while(1) {
