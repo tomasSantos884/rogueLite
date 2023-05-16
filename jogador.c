@@ -11,27 +11,65 @@
 void drawPlayer(int x,int y, STATE *s)  {} //já não faz nada, a função debaixo já muda o state
 
 
-/* void moveJogador(STATE *s) { 
+void moveJogador(BLOCK* map,STATE *st) { 
 
     int ch = getchar();
+    int i = st->playerX;
+    int j = st->playerY;
+
     switch (ch) {
-      case KEY_UP: if (s->map[s->playerX][s->playerY++].isWall != 1) { // verifica se o jogador se está a mover contra uma parede
-                   s->playerY = s->playerY++;}
+      case '8':
+      case KEY_UP: if (map[i * st->nCols * (j+1)].isWall != 1) { // verifica se o jogador se está a mover contra uma parede
+                   st->playerY++;}                                      // N
         break;
-      case KEY_DOWN: if (s->map[s->playerX][s->playerY--].isWall != 1) { 
-                     s->playerY = s->playerY--;}
+      case '7':
+      case KEY_A3: if (map[(i-1) * st->nCols * (j+1)].isWall != 1) { // NW
+                     st->playerY++;
+                     st->playerX--;}
         break;
-      case KEY_LEFT: if (s->map[s->playerX--][s->playerY].isWall != 1) { 
-                     s->playerX = s->playerX--;}
+      case '9':
+      case KEY_C3: if (map[(i+1) * st->nCols * (j+1)].isWall != 1) { //NE
+                     st->playerY++;
+                     st->playerX++;}
         break;
-      case KEY_RIGHT: if (s->map[s->playerX++][s->playerY].isWall != 1) { 
-                     s->playerX = s->playerX++;}
+      case '2':
+      case KEY_DOWN: if (map[i * st->nCols * (j-1)].isWall != 1) {  //S
+                     st->playerY--;}
         break;
-    } */
+      case '1':
+      case KEY_A1: if (map[(i-1) * st->nCols * (j-1)].isWall != 1) { //SW
+                     st->playerY--;
+                     st->playerX--;}
+        break;
+      case '3':
+      case KEY_C1: if (map[(i+1) * st->nCols * (j-1)].isWall != 1) { //SE
+                     st->playerY--;
+                     st->playerX++;}
+        break;
+      case '4':
+      case KEY_LEFT: if (map[(i-1) * st->nCols * j].isWall != 1) { //W
+                     st->playerX--;}
+        break;
+      case '6':
+      case KEY_RIGHT: if (map[(i+1) * st->nCols * j].isWall != 1) { //E
+                     st->playerX++;}
+        break;
+    } 
+}
 
+void spawnPlayer (BLOCK* map,STATE *st) {
+  srand(9);
+  int i = rand() % st->nCols;
+  int j = rand() % st->nRows;
+  while (map[i * st->nCols * j].isWall == 1) {
+    i = rand() % st->nCols;
+    j = rand() % st->nRows;
+  }
+  st->playerX = i;
+  st->playerY = j;
+}
 
-//}
-void do_movement_action(STATE *st, int dx, int dy) {
+/* void do_movement_action(STATE *st, int dx, int dy) {
 	st->playerX += dx;
 	st->playerY += dy;
 }
@@ -64,7 +102,7 @@ void update(STATE *st) {
 	}
 }
 
-/* 
+
 int main() {
     STATE *s;
     int c;
