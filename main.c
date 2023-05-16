@@ -8,6 +8,9 @@
 #include <string.h>
 #include "mapa.h"
 
+#include "jogador.c"
+#include "blocks.c"
+#include "vision.c"
 
 
 

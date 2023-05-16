@@ -7,11 +7,11 @@
 typedef struct {
     int isWall; // 1 se é parede
 	int isVisible; //1 se é visivel
-	int seen; //1 se foi visto 
+	int seen; //1 se foi visto
 } BLOCK;
 
 
-typedef struct state {
+typedef struct state{
 	//coordenadas do jogador
 	int playerX;
 	int playerY;
@@ -25,9 +25,6 @@ typedef struct state {
 
 	int nFstPass; //numero de vezes que vai ser corrido o primeiro algoritmo para organizar o mapa
 	int nSndPass; //numero de vezes que vai ser corrido o segundo algoritmo para organizar o mapa
-
-	BLOCK **map;
-
 } STATE;
 
 

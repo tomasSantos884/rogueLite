@@ -5,45 +5,53 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <time.h>
+#include <math.h>
+
+#include "state.h"
+
+#include "mapa.h"
 
 #define RANGE_OF_SIGHT 5
 
 // x e y sao coordenadas do jogador, rows e collums sao coordenadas do mapa
-void playerVisibility(int x, int y, int rows, int collums, int *isVisible, int *seen){
+void playerVisibility(BLOCK *map,STATE *st){
 
 
-    for (int i=0; i < rows; i++){
-        for (int j=0; j< collums; j++){
-            int dx = j - x;
-            int dy = i - y;
+    for (int i=0; i < st->nRows; i++){
+        for (int j=0; j< st->nCols; j++){
+            int dx = i - st->playerX;
+            int dy = j - st->playerY;
             double distance = sqrt(dx * dx + dy * dy); // calcucar a tangente para verificar as posiçoes de uma forma circular
 
             if (distance <= RANGE_OF_SIGHT){
                 int isObject = 0;
 
                 // loop para verificar se existe um obstaculo entre a posiçao do jogador e a posiçao que estamos a verificar
-                for (double t = 0; t< 1.0; t+= 0.1){
-                    int cx = x + t * dx;
-                    int cy = y + t * dy;
+                for (double t = 0; t < 1.0; t+= 0.1){
+                    int cx = st->playerX + t * dx;
+                    int cy = st->playerY + t * dy;
 
                     // verificar se o bloco é um obstaculo neste caso parede ou caverna
-                    if (map.block blocks[cy][cx] == '#' || map.block blocks[cy][cx] == '-'){
-
+                    if (map[cy * st->nCols + cx].isWall == 1){
                         isObject=1;
                         break;
                     }
                 }
 
-                if (isObject){
-                    *isVisible = 1;
-                    *seen = 1;// ja encontrou uma parece por isso nao consegue ver mais 
+                /* if (isObject){
+                    map[i * st->nCols + j].isVisible = 1;
+                    map[i * st->nCols + j].seen = 1;// ja encontrou uma parece por isso nao consegue ver mais 
                 } else {
-                    *isVisible = 1;
-                    *seen = 1; // bloco visivel
-                }
+                    map[i * st->nCols + j].isVisible = 1;
+                    map[i * st->nCols + j].seen = 1; // bloco visivel
+                } */
+
+                map[i * st->nCols + j].isVisible = 1;
+                map[i * st->nCols + j].seen = 1;
+                
 
             } else {
-                    *isVisible = 0;// esta fora da range
+                    map[i * st->nCols + j].isVisible = 0;// esta fora da range
                 }
         }
     }
