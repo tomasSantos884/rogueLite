@@ -19,34 +19,39 @@ void playerVisibility(BLOCK *map,STATE *st){
 
     for (int i=0; i < st->nRows; i++){
         for (int j=0; j< st->nCols; j++){
-            map[i * st->nCols + j].isVisible = 1;
-
             int dx = i - st->playerX;
             int dy = j - st->playerY;
             double distance = sqrt(dx * dx + dy * dy); // calcucar a tangente para verificar as posiçoes de uma forma circular
-
+            
             if (distance <= RANGE_OF_SIGHT){
+                int cx =0;
+                int cy =0;
                 int isObject = 0;
-
+                
                 // loop para verificar se existe um obstaculo entre a posiçao do jogador e a posiçao que estamos a verificar
                 for (double t = 0; t < 1.0; t+= 0.1){
-                    int cx = st->playerX + t * dx;
-                    int cy = st->playerY + t * dy;
+                    cx = st->playerX + t * dx;
+                    cy = st->playerY + t * dy;              
 
-                // verificar se o bloco é um obstaculo neste caso parede ou caverna
-                    if (map[cy * st->nCols + cx].isWall == 1){
-                        isObject=1;
-                        break;
-                    }
-                }
-                map[i * st->nCols + j].isVisible = 1;
-                map[i * st->nCols + j].seen = 1;
                 
+                    // verificar se o bloco é um obstaculo neste caso parede ou caverna
+                    if (map[cx * st->nCols + cy].isWall == 1){
+                        map[cx * st->nCols + cy].isVisible = 1;
+                        map[cx * st->nCols + cy].seen = 1;
+                        isObject=1;
+                        break;                        
+                    }
 
-            }
-            else {
+                    
+                    if(!isObject){
+                    map[cx * st->nCols + cy].isVisible = 1;
+                    map[cx * st->nCols + cy].seen = 1;
+                    }
+                    }
+                } else {
                     map[i * st->nCols + j].isVisible = 0;// esta fora da range
+
+            } 
                 }
         }
     }
-}
