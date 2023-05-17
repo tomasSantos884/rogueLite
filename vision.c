@@ -19,6 +19,8 @@ void playerVisibility(BLOCK *map,STATE *st){
 
     for (int i=0; i < st->nRows; i++){
         for (int j=0; j< st->nCols; j++){
+            map[i * st->nCols + j].isVisible = 1;
+
             int dx = i - st->playerX;
             int dy = j - st->playerY;
             double distance = sqrt(dx * dx + dy * dy); // calcucar a tangente para verificar as posiçoes de uma forma circular
@@ -31,26 +33,18 @@ void playerVisibility(BLOCK *map,STATE *st){
                     int cx = st->playerX + t * dx;
                     int cy = st->playerY + t * dy;
 
-                    // verificar se o bloco é um obstaculo neste caso parede ou caverna
+                // verificar se o bloco é um obstaculo neste caso parede ou caverna
                     if (map[cy * st->nCols + cx].isWall == 1){
                         isObject=1;
                         break;
                     }
                 }
-
-                /* if (isObject){
-                    map[i * st->nCols + j].isVisible = 1;
-                    map[i * st->nCols + j].seen = 1;// ja encontrou uma parece por isso nao consegue ver mais 
-                } else {
-                    map[i * st->nCols + j].isVisible = 1;
-                    map[i * st->nCols + j].seen = 1; // bloco visivel
-                } */
-
                 map[i * st->nCols + j].isVisible = 1;
                 map[i * st->nCols + j].seen = 1;
                 
 
-            } else {
+            }
+            else {
                     map[i * st->nCols + j].isVisible = 0;// esta fora da range
                 }
         }

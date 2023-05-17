@@ -29,10 +29,10 @@ int main(){
 
 	st.borderLength = 1;
 
-	st.probWall = 0.30;
+	st.probWall = 0.40;
 
-	st.nFstPass = 0;
-	st.nSndPass = 0;
+	st.nFstPass = 4;
+	st.nSndPass = 1;
 
 	st.nCols = ncols;
 	st.nRows = nrows;
@@ -53,11 +53,9 @@ int main(){
 
 
 	init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
-        init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
+    init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
 
-	setBorders((BLOCK*)map,&st);
-	fillMap((BLOCK*)map,&st);
 
 	genMap((BLOCK*)map,&st);
 
