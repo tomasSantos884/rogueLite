@@ -100,8 +100,6 @@ void sndSortAlgorithm(BLOCK* map,STATE *st){
 
 void genMap(BLOCK* map,STATE *st){
 	
-	
-
 	setBorders((BLOCK*)map,st); //o 2 corresponde à grossura da borda do mapa
 
 	fillMap((BLOCK*)map,st); //este 40 corresponda à probabildade de certa 'casa' do mapa tem de ser parede ou não
