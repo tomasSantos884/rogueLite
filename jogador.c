@@ -8,7 +8,7 @@
 #include "state.h"
 
 
-void drawPlayer(int x,int y, STATE *s)  {} //já não faz nada, a função debaixo já muda o state
+//void drawPlayer(int x,int y, STATE *s)  {} //já não faz nada, a função debaixo já muda o state
 
 
 void moveJogador(BLOCK* map,STATE *st) { 
@@ -69,7 +69,7 @@ void spawnPlayer (BLOCK* map,STATE *st) {
   st->playerY = j;
 }
 
-/* void do_movement_action(STATE *st, int dx, int dy) {
+ void do_movement_action(STATE *st, int dx, int dy) {
 	st->playerX += dx;
 	st->playerY += dy;
 }
@@ -102,7 +102,7 @@ void update(STATE *st) {
 	}
 }
 
-
+/*
 int main() {
     STATE *s;
     int c;

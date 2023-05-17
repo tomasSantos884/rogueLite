@@ -25,7 +25,7 @@ int main() {
     noecho();
     keypad(stdscr, TRUE);
     curs_set(FALSE);
-	nonl;
+	//nonl();
 	curs_set(0);
 	start_color();
 
@@ -40,23 +40,23 @@ int main() {
 	int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
 
-    STATE* st;
+    STATE st;
 
-	st->nRows = nrows;
-	st->nCols = ncols;
+	st.nRows = nrows;
+	st.nCols = ncols;
 
-	st->playerX = 20;
-	st->playerY = 20;
+	st.playerX = 20;
+	st.playerY = 20;
 
-	st->borderLength = 1;
+	st.borderLength = 1;
 
-	st->probWall = 0.30;
+	st.probWall = 0.30;
 
-	st->nFstPass = 0;
-	st->nSndPass = 0;
+	st.nFstPass = 0;
+	st.nSndPass = 0;
 
-	st->nCols = ncols;
-	st->nRows = nrows;
+	st.nCols = ncols;
+	st.nRows = nrows;
 	
 	BLOCK map[nrows][ncols];
 	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
@@ -118,6 +118,7 @@ int main() {
                     case 0:
                         mvprintw(menu_start_y + num_choices, menu_start_x, "Starting game...");
                         clear();
+						refresh();
 						setBorders((BLOCK*)map,&st);
 						fillMap((BLOCK*)map,&st);
 
@@ -131,6 +132,7 @@ int main() {
 
 		move(st.playerX, st.playerY);
 		update(&st);
+		refresh();
 	}
 						
 						break;

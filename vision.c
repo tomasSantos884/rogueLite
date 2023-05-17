@@ -38,13 +38,13 @@ void playerVisibility(BLOCK *map,STATE *st){
                     }
                 }
 
-                /* if (isObject){
+                 if (isObject){
                     map[i * st->nCols + j].isVisible = 1;
                     map[i * st->nCols + j].seen = 1;// ja encontrou uma parece por isso nao consegue ver mais 
                 } else {
                     map[i * st->nCols + j].isVisible = 1;
                     map[i * st->nCols + j].seen = 1; // bloco visivel
-                } */
+                } 
 
                 map[i * st->nCols + j].isVisible = 1;
                 map[i * st->nCols + j].seen = 1;
