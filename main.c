@@ -124,7 +124,8 @@ int main() {
 
 						genMap((BLOCK*)map,&st);
 						while(1) {
-		playerVisibility((BLOCK*)map,&st);
+		updateVisibility((BLOCK*)map,&st);
+        playerVisibility((BLOCK*)map,&st);
 		drawMap((BLOCK*)map,&st);
 		attron(COLOR_PAIR(COLOR_WHITE));
 		mvaddch(st.playerX, st.playerY, '@' | A_BOLD);
