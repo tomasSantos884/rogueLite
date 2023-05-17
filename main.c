@@ -4,14 +4,15 @@
 #include <ncurses.h>
 #include <time.h>
 #include <menu.h>
-#include "state.h"
 #include <string.h>
-#include "mapa.h"
 
+
+
+#include "state.h"
 #include "jogador.c"
 #include "blocks.c"
 #include "vision.c"
-
+#include "mapa.h"
 
 
 
