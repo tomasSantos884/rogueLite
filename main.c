@@ -13,7 +13,7 @@
 #include "blocks.c"
 #include "vision.c"
 #include "mapa.h"
-
+#include "menu.c"
 
 
 
@@ -38,8 +38,7 @@ int main() {
 	// Get window size
     int ncols,nrows;
 	getmaxyx(stdscr,nrows,ncols);
-	int max_y, max_x;
-    getmaxyx(stdscr, max_y, max_x);
+	
 
     STATE st;
 
@@ -63,56 +62,37 @@ int main() {
 	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
 	srandom(time(NULL));
 	start_color();
-	// Create the menu
-    int menu_choice = 0;
-    const char* menu_choices[] = {
-        "Start Game",
-        "Options",
-        "Exit"
-    };
-    const int num_choices = sizeof(menu_choices) / sizeof(menu_choices[0]);
-    int menu_start_y = (max_y - num_choices) / 2;
-    int menu_start_x = (max_x - 10) / 2; // Assumes menu items are 10 characters wide
-    while (true) {
-        // Print the menu
-        clear();
-        attron(A_BOLD);
-        attron(A_STANDOUT);
-        mvprintw(menu_start_y - 4, (max_x - 22) / 2, "        Game Menu        ");
-        attroff(A_STANDOUT);
-        attroff(A_BOLD);
-        box(stdscr, 0, 0); // Add a box around the screen
-        int inner_start_y = menu_start_y - 2;
-        int inner_start_x = menu_start_x - 2;
-        int inner_end_y = menu_start_y + num_choices + 2;
-        int inner_end_x = menu_start_x + 12; // Assumes menu items are 10 characters wide, plus 2 characters of padding
-        box(stdscr, '|', '-'); // Add a box around the menu
-        for (int i = inner_start_y + 1; i < inner_end_y; i++) {
-            mvhline(i, inner_start_x + 1, ' ', inner_end_x - inner_start_x - 1);
-        }
-        for (int i = 0; i < num_choices; i++) {
-            if (i == menu_choice) {
-                mvprintw(menu_start_y + i, menu_start_x, "-> %s", menu_choices[i]);
-            } else {
-                mvprintw(menu_start_y + i, menu_start_x, "   %s", menu_choices[i]);
-            }
-        }
 
-        // Get input
-        int input = getch();
+	
+	//Menu
+	const int num_choices = sizeof(menu_choices) / sizeof(menu_choices[0]);
+    int menu_start_y = (st.nRows - num_choices) / 2;
+    int menu_start_x = (st.nCols - 10) / 2;
+	int menu_choice = 0;
+    printMenu(menu_choice, &st);    
+	while (1)
+	{
+	
+	
+	
+	
+		bool playing = false;	
+		int input = getch();
         switch (input) {
             case KEY_UP:
                 menu_choice--;
                 if (menu_choice < 0) {
                     menu_choice = num_choices - 1;
                 }
-                break;
+                printMenu(menu_choice, &st);
+				break;
             case KEY_DOWN:
                 menu_choice++;
                 if (menu_choice >= num_choices) {
                     menu_choice = 0;
                 }
-                break;
+                printMenu(menu_choice, &st);
+				break;
             case '\n':
                 // Handle menu choice
                 switch (menu_choice) {
@@ -120,10 +100,10 @@ int main() {
                         mvprintw(menu_start_y + num_choices, menu_start_x, "Starting game...");
                         clear();
 						refresh();
-
+						playing = true;
 
 						genMap((BLOCK*)map,&st);
-						while(1) {
+						while(playing) {
 		playerVisibility((BLOCK*)map,&st);
 		drawMap((BLOCK*)map,&st);
 		attron(COLOR_PAIR(COLOR_WHITE));
@@ -134,13 +114,15 @@ int main() {
 		update(&st);
 		refresh();
 	}
-						
+		printMenu(menu_choice, &st);				
 						break;
                     case 1:
-                        mvprintw(menu_start_y + num_choices, menu_start_x, "Options menu...");
+                        printMenu(menu_choice, &st);
+						mvprintw(menu_start_y + num_choices, menu_start_x, "Options menu...");
                         break;
                     case 2:
-                        mvprintw(menu_start_y + num_choices, menu_start_x, "Exiting...");
+                        
+						mvprintw(menu_start_y + num_choices, menu_start_x, "Exiting...");
                         goto end;
                         break;
                 }
@@ -148,12 +130,12 @@ int main() {
                 getch();
                 break;
         }
-    }
-
+	}
+	
 end:
     // Clean up ncurses
     endwin();
-    return 0;
+    return 0; 
 }
 
 
