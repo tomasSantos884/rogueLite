@@ -31,8 +31,10 @@ int main() {
 	start_color();
 
     init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
-        init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
+    init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
+    init_pair(COLOR_RED, COLOR_RED, COLOR_BLACK);
+    init_pair(COLOR_GREEN, COLOR_GREEN, COLOR_BLACK);
 
 	
 	// Get window size
@@ -123,16 +125,17 @@ int main() {
 
 
 						genMap((BLOCK*)map,&st);
+                        spawnPlayer((BLOCK*)map,&st);
 						while(1) {
 		updateVisibility((BLOCK*)map,&st);
         playerVisibility((BLOCK*)map,&st);
 		drawMap((BLOCK*)map,&st);
-		attron(COLOR_PAIR(COLOR_WHITE));
+		attron(COLOR_PAIR(COLOR_GREEN));
 		mvaddch(st.playerX, st.playerY, '@' | A_BOLD);
-		attroff(COLOR_PAIR(COLOR_WHITE));
+		attroff(COLOR_PAIR(COLOR_GREEN));
 
 		move(st.playerX, st.playerY);
-		update(&st);
+        update(&st,(BLOCK*)map);
 		refresh();
 	}
 						
