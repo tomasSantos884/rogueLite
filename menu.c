@@ -3,8 +3,8 @@
 
 
     const char* menu_choices[] = {
-        "Start Game",
-        "Options",
+        "Start new Game",
+        "Continue",
         "Exit"
     };
 

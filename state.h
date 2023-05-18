@@ -25,6 +25,8 @@ typedef struct state{
 
 	int nFstPass; //numero de vezes que vai ser corrido o primeiro algoritmo para organizar o mapa
 	int nSndPass; //numero de vezes que vai ser corrido o segundo algoritmo para organizar o mapa
+
+	bool playing; // Bool para verificar se o jogo está a decorrer ou está em pausa
 } STATE;
 
 

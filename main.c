@@ -16,6 +16,25 @@
 #include "menu.c"
 
 
+void play(BLOCK *map, STATE *st)
+{
+	while(st->playing) {
+		updateVisibility((BLOCK*)map,st);
+        playerVisibility((BLOCK*)map,st);
+		drawMap((BLOCK*)map,st);
+		attron(COLOR_PAIR(COLOR_GREEN));
+		mvaddch(st->playerX, st->playerY, '@' | A_BOLD);
+		attroff(COLOR_PAIR(COLOR_GREEN));
+		move(st->playerX, st->playerY);
+        update(st,(BLOCK*)map);
+		refresh();
+	}
+	printMenu(1, st); // quando (st->playing == false) ,isto é quando se voltar ao menu, a função play vai colocar o menu no terminal com a segunda opção selecionada
+}
+
+
+
+
 
 
 
@@ -26,7 +45,6 @@ int main() {
     noecho();
     keypad(stdscr, TRUE);
     curs_set(FALSE);
-	//nonl();
 	curs_set(0);
 	start_color();
 
@@ -41,7 +59,6 @@ int main() {
     int ncols,nrows;
 	getmaxyx(stdscr,nrows,ncols);
 	
-
     STATE st;
 
 	st.nRows = nrows;
@@ -59,9 +76,11 @@ int main() {
 
 	st.nCols = ncols;
 	st.nRows = nrows;
+	st.playing = false;
 	
 	BLOCK map[nrows][ncols];
 	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
+	bool canContinueGame = false; // necessário para saber se é possivel utilizar a opção continuar do menu
 	srandom(time(NULL));
 	start_color();
 
@@ -74,11 +93,7 @@ int main() {
     printMenu(menu_choice, &st);    
 	while (1)
 	{
-	
-	
-	
-	
-		bool playing = false;	
+			
 		int input = getch();
         switch (input) {
             case KEY_UP:
@@ -96,38 +111,35 @@ int main() {
                 printMenu(menu_choice, &st);
 				break;
             case '\n':
-                // Handle menu choice
+                
                 switch (menu_choice) {
                     case 0:
-                        mvprintw(menu_start_y + num_choices, menu_start_x, "Starting game...");
+                        
                         clear();
 						refresh();
-						playing = true;
-
+						st.playing = true;
+						canContinueGame = true;
+						initializeBlocks((BLOCK*)map,&st);
 						genMap((BLOCK*)map,&st);
                         spawnPlayer((BLOCK*)map,&st);
-						while(playing) {
-		updateVisibility((BLOCK*)map,&st);
-        playerVisibility((BLOCK*)map,&st);
-		drawMap((BLOCK*)map,&st);
-		attron(COLOR_PAIR(COLOR_GREEN));
-		mvaddch(st.playerX, st.playerY, '@' | A_BOLD);
-		attroff(COLOR_PAIR(COLOR_GREEN));
-
-		move(st.playerX, st.playerY);
-        update(&st,(BLOCK*)map);
-		refresh();
-	}
-		printMenu(menu_choice, &st);				
+						play((BLOCK*) map, &st);							
+						menu_choice = 1;
 						break;
                     case 1:
-                        printMenu(menu_choice, &st);
-						mvprintw(menu_start_y + num_choices, menu_start_x, "Options menu...");
-                        break;
-                    case 2:
-                        
-						mvprintw(menu_start_y + num_choices, menu_start_x, "Exiting...");
-                        goto end;
+                        if (canContinueGame)
+						{
+							st.playing = true;
+							play((BLOCK*) map, &st);
+						}
+						else
+						{
+							printMenu(menu_choice, &st);
+							mvprintw(menu_start_y + num_choices, menu_start_x, "Cannot continue game");
+						}
+						break;
+                    case 2:                        
+                        endwin();
+    					return 0; 
                         break;
                 }
                 mvprintw(menu_start_y + num_choices + 1, menu_start_x, "Press any key to continue...");
@@ -136,8 +148,4 @@ int main() {
         }
 	}
 	
-end:
-    // Clean up ncurses
-    endwin();
-    return 0; 
 }
