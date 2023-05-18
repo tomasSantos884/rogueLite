@@ -11,11 +11,20 @@
 
 #include "mapa.h"
 
-#define RANGE_OF_SIGHT 5
+#define RANGE_OF_SIGHT 10
 
-// x e y sao coordenadas do jogador, rows e collums sao coordenadas do mapa
+void updateVisibility(BLOCK *map, STATE *st) {
+    // Definir todas as posições do mapa como não visíveis
+    for (int i = 0; i < st->nRows; i++) {
+        for (int j = 0; j < st->nCols; j++) {
+            map[i * st->nCols + j].isVisible = 0;
+        }
+    }
+}
+
 void playerVisibility(BLOCK *map,STATE *st){
 
+   
 
     for (int i=0; i < st->nRows; i++){
         for (int j=0; j< st->nCols; j++){
@@ -46,8 +55,8 @@ void playerVisibility(BLOCK *map,STATE *st){
                     if(!isObject){
                     map[cx * st->nCols + cy].isVisible = 1;
                     map[cx * st->nCols + cy].seen = 1;
-                    }
-                    }
+                    } else map[cx * st->nCols + cy].isVisible = 0;
+                 }
                 } else {
                     map[i * st->nCols + j].isVisible = 0;// esta fora da range
 
@@ -55,3 +64,5 @@ void playerVisibility(BLOCK *map,STATE *st){
                 }
         }
     }
+
+
