@@ -159,5 +159,3 @@ end:
     endwin();
     return 0;
 }
-
-

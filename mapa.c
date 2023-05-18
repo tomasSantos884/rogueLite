@@ -79,7 +79,7 @@ void firstSortAlgorithm(BLOCK* map,STATE *st){
 void sndSortAlgorithm(BLOCK* map,STATE *st){
 	for (int i = 0; i < st->nSndPass; i++){
 
-		int x,y;
+
 		int tempMap[st->nRows][st->nCols];
 
 		for (int x = 1; x < st->nRows - 1; x++){
