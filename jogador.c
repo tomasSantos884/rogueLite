@@ -18,7 +18,7 @@ void spawnPlayer(BLOCK* map, STATE* st) {
         j = rand() % st->nCols;
     }
 
-    st->playerX = i;   //dá valor às coordenadas da STATE
+    st->playerX = i;   //dá valor às coordenadas na STATE
     st->playerY = j;
 }
 
