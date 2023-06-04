@@ -19,8 +19,8 @@
 void play(BLOCK *map, STATE *st)
 {
 	while(st->playing) {
-		updateVisibility((BLOCK*)map,st);
-        playerVisibility((BLOCK*)map,st);
+		refreshVisibility((BLOCK*)map,st);//faz refresh a visivel colocando todos os blocos com a propriedade isVisible a zero
+        playerVisibility((BLOCK*)map,st);//atualiza os campos isVisible e seen de todos os blocos relativamento a posiçao do jogador (criando o campo de visao)
 		drawMap((BLOCK*)map,st);
 		attron(COLOR_PAIR(COLOR_GREEN));
 		mvaddch(st->playerX, st->playerY, '@' | A_BOLD);
