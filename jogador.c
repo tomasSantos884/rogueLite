@@ -60,6 +60,7 @@ void update(STATE *st,BLOCK *map) {
 		case KEY_C3:
 		case '3': updatePosPlayer(st,(BLOCK*)map, +1, +1); break; //Down+Right
 		case 'q': endwin(); exit(0); break;
+		case 'p': st->playing = false; break;
 	}
 }
 

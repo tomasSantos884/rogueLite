@@ -16,17 +16,17 @@
 #include "menu.c"
 
 
-void play(BLOCK *map, STATE *st)
+void play(BLOCK *map, STATE *st) // a função play vai realizar todas as ações para reagir aos comandos do jogador durante o jogo e atualizar o jogo
 {
 	while(st->playing) {
 		refreshVisibility((BLOCK*)map,st);//faz refresh a visivel colocando todos os blocos com a propriedade isVisible a zero
         playerVisibility((BLOCK*)map,st);//atualiza os campos isVisible e seen de todos os blocos relativamento a posiçao do jogador (criando o campo de visao)
-		drawMap((BLOCK*)map,st);
+		drawMap((BLOCK*)map,st); // Desenhar o mapa
 		attron(COLOR_PAIR(COLOR_GREEN));
-		mvaddch(st->playerX, st->playerY, '@' | A_BOLD);
+		mvaddch(st->playerX, st->playerY, '@' | A_BOLD); // Desenhar o jogador 
 		attroff(COLOR_PAIR(COLOR_GREEN));
 		move(st->playerX, st->playerY);
-        update(st,(BLOCK*)map);
+        update(st,(BLOCK*)map); // reagir a um comando do jogador 
 		refresh();
 	}
 	printMenu(1, st); // quando (st->playing == false) ,isto é quando se voltar ao menu, a função play vai colocar o menu no terminal com a segunda opção selecionada
@@ -82,16 +82,16 @@ int main() {
 	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
 	bool canContinueGame = false; // necessário para saber se é possivel utilizar a opção continuar do menu
 	srandom(time(NULL));
-	start_color();
+	
 
 	
 	//Menu
-	const int num_choices = sizeof(menu_choices) / sizeof(menu_choices[0]);
+	const int num_choices = 3;
     int menu_start_y = (st.nRows - num_choices) / 2;
     int menu_start_x = (st.nCols - 10) / 2;
 	int menu_choice = 0;
     printMenu(menu_choice, &st);    
-	while (1)
+	while (1) //  main loop do jogo, quando saimos deste loop o jogo terminou
 	{
 			
 		int input = getch();
@@ -110,10 +110,10 @@ int main() {
                 }
                 printMenu(menu_choice, &st);
 				break;
-            case '\n':
+            case '\n': // selecionar opção
                 
                 switch (menu_choice) {
-                    case 0:
+                    case 0: // começar jogo
                         
                         clear();
 						refresh();
@@ -125,7 +125,7 @@ int main() {
 						play((BLOCK*) map, &st);							
 						menu_choice = 1;
 						break;
-                    case 1:
+                    case 1: //continuar jogo caso exista um jogo já iniciado
                         if (canContinueGame)
 						{
 							st.playing = true;
@@ -137,12 +137,12 @@ int main() {
 							mvprintw(menu_start_y + num_choices, menu_start_x, "Cannot continue game");
 						}
 						break;
-                    case 2:                        
+                    case 2:   // sair              
                         endwin();
     					return 0; 
                         break;
                 }
-                mvprintw(menu_start_y + num_choices + 1, menu_start_x, "Press any key to continue...");
+                
                 getch();
                 break;
         }
