@@ -16,7 +16,7 @@ void printMenu(int menu_choice, STATE* st) // A função printMenu vai desenhar 
     
     const int num_choices = 3;
     int menu_start_y = (max_y - num_choices) / 2; // coordenada y de referência para a posição do menu, as coordenadas y estão invertidas (max_y é a linha mais baixa do terminal)
-    int menu_start_x = (max_x - 10) / 2; // coordenada x de referênci para a posição do menu
+    int menu_start_x = (max_x - 10) / 2; // coordenada x de referência para a posição do menu
     
     
     clear();

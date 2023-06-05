@@ -59,8 +59,8 @@ void update(STATE *st,BLOCK *map) {
 		case '2': updatePosPlayer(st,(BLOCK*)map, +1, +0); break; //Down
 		case KEY_C3:
 		case '3': updatePosPlayer(st,(BLOCK*)map, +1, +1); break; //Down+Right
-		case 'q': endwin(); exit(0); break;
-		case 'p': st->playing = false; break;
+		case 'q': endwin(); exit(0); break; // Sair do jogo
+		case 'p': st->playing = false; break; // Voltar ao menu
 	}
 }
 
