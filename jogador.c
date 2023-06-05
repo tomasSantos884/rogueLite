@@ -42,23 +42,23 @@ void update(STATE *st,BLOCK *map) {
 	mvaddch(st->playerX, st->playerY, ' ');
 	switch(key) {
 		case KEY_A1:
-		case '7': updatePosPlayer(st,(BLOCK*)map, -1, -1); break;  
+		case '7': updatePosPlayer(st,(BLOCK*)map, -1, -1); break;  //Up+Left
 		case KEY_UP:
-		case '8': updatePosPlayer(st,(BLOCK*)map, -1, +0); break;
+		case '8': updatePosPlayer(st,(BLOCK*)map, -1, +0); break;  //Up
 		case KEY_A3:
-		case '9': updatePosPlayer(st,(BLOCK*)map, -1, +1); break;
+		case '9': updatePosPlayer(st,(BLOCK*)map, -1, +1); break;  //Up+Right
 		case KEY_LEFT:
-		case '4': updatePosPlayer(st,(BLOCK*)map, +0, -1); break;
+		case '4': updatePosPlayer(st,(BLOCK*)map, +0, -1); break; //Left
 		case KEY_B2:
 		case '5': break;
 		case KEY_RIGHT:
-		case '6': updatePosPlayer(st,(BLOCK*)map, +0, +1); break;
+		case '6': updatePosPlayer(st,(BLOCK*)map, +0, +1); break; //Right
 		case KEY_C1:
-		case '1': updatePosPlayer(st,(BLOCK*)map, +1, -1); break;
+		case '1': updatePosPlayer(st,(BLOCK*)map, +1, -1); break; //Down+Left
 		case KEY_DOWN:
-		case '2': updatePosPlayer(st,(BLOCK*)map, +1, +0); break;
+		case '2': updatePosPlayer(st,(BLOCK*)map, +1, +0); break; //Down
 		case KEY_C3:
-		case '3': updatePosPlayer(st,(BLOCK*)map, +1, +1); break;
+		case '3': updatePosPlayer(st,(BLOCK*)map, +1, +1); break; //Down+Right
 		case 'q': endwin(); exit(0); break;
 	}
 }
