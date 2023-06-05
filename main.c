@@ -7,12 +7,11 @@
 #include <string.h>
 
 
-
+#include "mapa.h"
 #include "state.h"
 #include "jogador.c"
 #include "blocks.c"
 #include "vision.c"
-#include "mapa.h"
 #include "menu.c"
 
 
@@ -59,6 +58,8 @@ int main() {
     int ncols,nrows;
 	getmaxyx(stdscr,nrows,ncols);
 	
+
+	//inicialização do estado e atribuição das propriedades deste
     STATE st;
 
 	st.nRows = nrows;
@@ -78,6 +79,8 @@ int main() {
 	st.nRows = nrows;
 	st.playing = false;
 	
+
+	//inicialização do mapa
 	BLOCK map[nrows][ncols];
 	initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
 	bool canContinueGame = false; // necessário para saber se é possivel utilizar a opção continuar do menu
@@ -147,5 +150,7 @@ int main() {
                 break;
         }
 	}
-	
+
 }
+
+
