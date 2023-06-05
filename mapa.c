@@ -10,92 +10,90 @@
 
 
 
-void fillMap(BLOCK* map,STATE *st){
-	srand48(time(NULL));
-	double rand;
+void fillMap(BLOCK* map, STATE *st) {
+    srand48(time(NULL));
+    double rand;
 
-	for (int i = 1; i < st->nRows - 1; i++) {
+    // Preencher o mapa com blocos
+    for (int i = 1; i < st->nRows - 1; i++) {
         for (int j = 1; j < st->nCols - 1; j++) {
-			rand = drand48();
+            rand = drand48();
 
-
-			if (rand < st->probWall){
-				map[i * st->nCols + j].isWall = 1;
-			}
-		}
-	}
-}
-
-void setBorders(BLOCK* map,STATE *st){ //funcçao que irá percorrer o mapa e modificar as bordas destes de acordo com o tamanho da borda escolhido
-	
-	for (int i = 0;i < st->nRows;i++){
-        for (int j = 0; j < st->nCols; j++) {
-            if (i < st->borderLength || i >= st->nRows - st->borderLength || j < st->borderLength || j >= st->nCols - st->borderLength) {
-				map[i * st->nCols + j].isWall = 1;
+            // Verificar se o valor aleatório é menor que a probabilidade de ser uma parede
+            if (rand < st->probWall) {
+                map[i * st->nCols + j].isWall = 1;
             }
         }
-	}
+    }
 }
 
-int wallCountInRad(BLOCK* map, int posX, int posY, int radius,STATE *st) {
+void setBorders(BLOCK* map, STATE *st) {
+    // Função para definir as bordas do mapa de acordo com o tamanho da borda escolhido
+    for (int i = 0; i < st->nRows; i++) {
+        for (int j = 0; j < st->nCols; j++) {
+            if (i < st->borderLength || i >= st->nRows - st->borderLength || j < st->borderLength || j >= st->nCols - st->borderLength) {
+                map[i * st->nCols + j].isWall = 1;
+            }
+        }
+    }
+}
+
+int wallCountInRad(BLOCK* map, int posX, int posY, int radius, STATE *st) {
     int wallCount = 0;
+
+    // Contar o número de paredes dentro de um raio dado a partir de uma posição
     for (int i = posX - radius; i <= posX + radius; i++) {
         for (int j = posY - radius; j <= posY + radius; j++) {
-
             if (i > 1 && i < st->nRows - 1 && j > 1 && j < st->nCols - 1 && (i != posX || j != posY)) {
-
-                if (map[i * st->nCols + j].isWall == 1){
+                if (map[i * st->nCols + j].isWall == 1) {
                     wallCount++;
-					
                 }
             }
         }
     }
 
-	return wallCount;
+    return wallCount;
 }
 
+void firstSortAlgorithm(BLOCK* map, STATE *st) {
+    for (int i = 0; i < st->nFstPass; i++) {
+        int tempMap[st->nRows][st->nCols];
 
-void firstSortAlgorithm(BLOCK* map,STATE *st){
-		for (int i = 0; i < st->nFstPass; i++){
+        // Realizar o primeiro algoritmo de classificação
+        for (int i = 1; i < st->nRows - 1; i++) {
+            for (int j = 1; j < st->nCols - 1; j++) {
+                tempMap[i][j] = (wallCountInRad((BLOCK*)map, i, j, 1, st) >= 5) || (wallCountInRad((BLOCK*)map, i, j, 2, st) <= 2);
+            }
+        }
 
-		int tempMap[st->nRows][st->nCols];
-
-		for (int i = 1; i < st->nRows - 1; i++){
-			for (int j = 1; j < st->nCols - 1; j++){
-				tempMap[i][j] = (wallCountInRad((BLOCK*)map,i,j,1,st) >= 5) || (wallCountInRad((BLOCK*)map,i,j,2,st) <= 2);
-			}
-		}
-
-		for (int i = 1; i < st->nRows - 1; i++){
-			for (int j = 1; j < st->nCols - 1; j++){
-				map[i * st->nCols + j].isWall = tempMap[i][j];
-			}
-		}
-	}
+        // Atualizar o mapa com os resultados do algoritmo
+        for (int i = 1; i < st->nRows - 1; i++) {
+            for (int j = 1; j < st->nCols - 1; j++) {
+                map[i * st->nCols + j].isWall = tempMap[i][j];
+            }
+        }
+    }
 }
 
+void sndSortAlgorithm(BLOCK* map, STATE *st) {
+    for (int i = 0; i < st->nSndPass; i++) {
+        int tempMap[st->nRows][st->nCols];
 
-void sndSortAlgorithm(BLOCK* map,STATE *st){
-	for (int i = 0; i < st->nSndPass; i++){
+        // Realizar o segundo algoritmo de classificação
+        for (int x = 1; x < st->nRows - 1; x++) {
+            for (int y = 1; y < st->nCols - 1; y++) {
+                tempMap[x][y] = (wallCountInRad((BLOCK*)map, x, y, 1, st) >= 5);
+            }
+        }
 
-
-		int tempMap[st->nRows][st->nCols];
-
-		for (int x = 1; x < st->nRows - 1; x++){
-			for (int y = 1; y < st->nCols - 1; y++){
-				tempMap[x][y] = (wallCountInRad((BLOCK*)map,x,y,1,st) >= 5);
-			}
-		}
-
-		for (int x = 1; x < st->nRows - 1; x++){
-			for (int y = 1; y < st->nCols - 1; y++){
-				map[x * st->nCols + y].isWall = tempMap[x][y];
-			}
-		}
-	} 
-
-}	
+        // Atualizar o mapa com os resultados do algoritmo
+        for (int x = 1; x < st->nRows - 1; x++) {
+            for (int y = 1; y < st->nCols - 1; y++) {
+                map[x * st->nCols + y].isWall = tempMap[x][y];
+            }
+        }
+    }
+}
 
 
 void genMap(BLOCK* map,STATE *st){
