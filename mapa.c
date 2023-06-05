@@ -59,7 +59,7 @@ void firstSortAlgorithm(BLOCK* map, STATE *st) {
     for (int i = 0; i < st->nFstPass; i++) {
         int tempMap[st->nRows][st->nCols];
 
-        // Realizar o primeiro algoritmo de classificação
+        // Realizar o primeiro algoritmo de ordenacao
         for (int i = 1; i < st->nRows - 1; i++) {
             for (int j = 1; j < st->nCols - 1; j++) {
                 tempMap[i][j] = (wallCountInRad((BLOCK*)map, i, j, 1, st) >= 5) || (wallCountInRad((BLOCK*)map, i, j, 2, st) <= 2);
@@ -79,7 +79,7 @@ void sndSortAlgorithm(BLOCK* map, STATE *st) {
     for (int i = 0; i < st->nSndPass; i++) {
         int tempMap[st->nRows][st->nCols];
 
-        // Realizar o segundo algoritmo de classificação
+        // Realizar o segundo algoritmo de ordenacao
         for (int x = 1; x < st->nRows - 1; x++) {
             for (int y = 1; y < st->nCols - 1; y++) {
                 tempMap[x][y] = (wallCountInRad((BLOCK*)map, x, y, 1, st) >= 5);
@@ -100,7 +100,7 @@ void genMap(BLOCK* map,STATE *st){
 	
 	setBorders((BLOCK*)map,st); //o 2 corresponde à grossura da borda do mapa
 
-	fillMap((BLOCK*)map,st); //este 40 corresponda à probabildade de certa 'casa' do mapa tem de ser parede ou não
+	fillMap((BLOCK*)map,st); //probabildade de certa 'casa' do mapa tem de ser parede ou não
 
 
 	//primeiro algoritmo de organização

@@ -37,7 +37,7 @@ void play(BLOCK *map, STATE *st) // a função play vai realizar todas as açõe
 
 
 
-int main() {
+int main(){
     // Initialize ncurses
     initscr();
     cbreak();
@@ -75,8 +75,6 @@ int main() {
 	st.nFstPass = 4;
 	st.nSndPass = 1;
 
-	st.nCols = ncols;
-	st.nRows = nrows;
 	st.playing = false;
 	
 
@@ -123,7 +121,7 @@ int main() {
 						st.playing = true;
 						canContinueGame = true;
 						initializeBlocks((BLOCK*)map,&st);
-						genMap((BLOCK*)map,&st);
+						genMap((BLOCK*)map,&st); //chama a funcao genMap que gera o mapa
                         spawnPlayer((BLOCK*)map,&st);
 						play((BLOCK*) map, &st);							
 						menu_choice = 1;
