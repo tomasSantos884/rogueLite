@@ -25,7 +25,8 @@ void play(BLOCK *map, STATE *st) // a função play vai realizar todas as açõe
 		mvaddch(st->playerX, st->playerY, '@' | A_BOLD); // Desenhar o jogador 
 		attroff(COLOR_PAIR(COLOR_GREEN));
 		move(st->playerX, st->playerY);
-        update(st,(BLOCK*)map); // reagir a um comando do jogador 
+        drawStatusBar(st);
+		update(st,(BLOCK*)map); // reagir a um comando do jogador 
 		refresh();
 	}
 	printMenu(1, st); // quando (st->playing == false) ,isto é quando se voltar ao menu, a função play vai colocar o menu no terminal com a segunda opção selecionada
@@ -62,8 +63,8 @@ int main(){
 	//inicialização do estado e atribuição das propriedades deste
     STATE st;
 
-	st.nRows = nrows;
-	st.nCols = ncols;
+	st.nRows = nrows - 3; // linhas do mapa
+	st.nCols = ncols; // colunas do mapa
 
 	st.playerX = 20;
 	st.playerY = 20;
@@ -77,6 +78,9 @@ int main(){
 
 	st.playing = false;
 	
+	st.player_health = 100;
+	st.player_hunger = 100;
+	st.mob_count = 3;
 
 	//inicialização do mapa
 	BLOCK map[nrows][ncols];
@@ -119,16 +123,17 @@ int main(){
                         clear();
 						refresh();
 						st.playing = true;
-						canContinueGame = true;
-						initializeBlocks((BLOCK*)map,&st);
+						canContinueGame = true; //Como o jogo já foi iniciado quando voltar ao menu a opção continue está disponivel
+						initializeBlocks((BLOCK*)map,&st); //inicializa os blocos para por as propriedades tudo a zero
 						genMap((BLOCK*)map,&st); //chama a funcao genMap que gera o mapa
-                        spawnPlayer((BLOCK*)map,&st);
+                        spawnPlayer((BLOCK*)map,&st); //coloca o jogador no mapa
 						play((BLOCK*) map, &st);							
 						menu_choice = 1;
 						break;
                     case 1: //continuar jogo caso exista um jogo já iniciado
                         if (canContinueGame)
 						{
+							clear();
 							st.playing = true;
 							play((BLOCK*) map, &st);
 						}

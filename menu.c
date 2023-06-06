@@ -39,5 +39,20 @@ void printMenu(int menu_choice, STATE* st) // A função printMenu vai desenhar 
 }
 
 
+void drawStatusBar (STATE* st) // desenha  a barra com informações sobre o jogo e o jogador
+{
+    move(st->nRows +1, 0);
+    for(int i = 0; i < st->nCols; i++)
+    {
+        printw("-");
+    }
+    move(st->nRows +2,0);
+    printw("Health : %d/100     ", st->player_health);
+    printw("Hunger : %d/100     ", st->player_hunger);
+    printw("Monsters remaining : %d", st->mob_count);
+    refresh();
+}
+
+
 
 
